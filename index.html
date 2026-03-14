@@ -15,6 +15,7 @@
     --green: #06D6A0;
     --red: #EF476F;
     --blue: #118AB2;
+    --purple: #7B2FBE;
     --bg: #FFF8F3;
     --surface: #FFFFFF;
     --surface2: #FFF0E8;
@@ -27,382 +28,203 @@
     --radius: 20px;
     --radius-sm: 12px;
   }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
   body {
-    font-family: 'Noto Sans KR', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    max-width: 430px;
-    margin: 0 auto;
-    font-size: 14px;
-    overflow-x: hidden;
+    font-family:'Noto Sans KR',sans-serif;
+    background:var(--bg); color:var(--text);
+    min-height:100vh; max-width:430px;
+    margin:0 auto; font-size:14px; overflow-x:hidden;
   }
+  .screen { display:none; min-height:100vh; flex-direction:column; }
+  .screen.active { display:flex; }
 
-  /* ── Screen system ── */
-  .screen { display: none; min-height: 100vh; flex-direction: column; }
-  .screen.active { display: flex; }
-
-  /* ══════════════════════════════════
-     SPLASH / LOGIN SCREEN
-  ══════════════════════════════════ */
+  /* ── LOGIN ── */
   #screen-login {
-    background: linear-gradient(160deg, #FF6B35 0%, #FF8C5A 40%, #FFD166 100%);
-    align-items: center; justify-content: center;
-    padding: 40px 24px;
-    position: relative; overflow: hidden;
+    background:linear-gradient(160deg,#FF6B35 0%,#FF8C5A 40%,#FFD166 100%);
+    align-items:center; justify-content:center; padding:40px 24px;
+    position:relative; overflow:hidden;
   }
-
   #screen-login::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    content:''; position:absolute; inset:0;
+    background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/svg%3E");
   }
-
   .login-box {
-    background: white;
-    border-radius: 28px;
-    padding: 36px 28px;
-    width: 100%;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-    position: relative; z-index: 1;
-    animation: popIn 0.5s cubic-bezier(.34,1.56,.64,1);
+    background:white; border-radius:28px; padding:36px 28px;
+    width:100%; box-shadow:0 20px 60px rgba(0,0,0,0.2);
+    position:relative; z-index:1;
+    animation:popIn 0.5s cubic-bezier(.34,1.56,.64,1);
   }
-
-  @keyframes popIn {
-    from { opacity:0; transform:scale(0.8) translateY(20px); }
-    to { opacity:1; transform:none; }
-  }
-
-  .login-logo {
-    text-align: center; margin-bottom: 28px;
-  }
-  .login-emoji { font-size: 52px; display: block; margin-bottom: 8px; animation: wobble 2s infinite; }
-  @keyframes wobble {
-    0%,100% { transform: rotate(-3deg); }
-    50% { transform: rotate(3deg); }
-  }
-  .login-title {
-    font-family: 'Gaegu', cursive;
-    font-size: 36px; font-weight: 700;
-    color: var(--orange);
-    letter-spacing: -1px;
-  }
-  .login-sub { font-size: 12px; color: var(--text3); margin-top: 2px; }
-
-  .tab-switch {
-    display: flex; background: var(--surface2);
-    border-radius: 12px; padding: 4px; margin-bottom: 20px;
-  }
+  @keyframes popIn { from{opacity:0;transform:scale(0.8) translateY(20px)} to{opacity:1;transform:none} }
+  @keyframes wobble { 0%,100%{transform:rotate(-3deg)} 50%{transform:rotate(3deg)} }
+  .login-emoji { font-size:52px; display:block; text-align:center; animation:wobble 2s infinite; }
+  .login-title { font-family:'Gaegu',cursive; font-size:36px; font-weight:700; color:var(--orange); text-align:center; letter-spacing:-1px; }
+  .login-sub { font-size:12px; color:var(--text3); text-align:center; margin-top:2px; margin-bottom:24px; }
+  .tab-switch { display:flex; background:var(--surface2); border-radius:12px; padding:4px; margin-bottom:20px; }
   .tab-switch button {
-    flex: 1; padding: 9px;
-    border: none; border-radius: 9px;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 13px; font-weight: 500;
-    cursor: pointer; transition: all 0.2s;
-    background: none; color: var(--text3);
+    flex:1; padding:9px; border:none; border-radius:9px;
+    font-family:'Noto Sans KR',sans-serif; font-size:12px; font-weight:500;
+    cursor:pointer; transition:all 0.2s; background:none; color:var(--text3);
   }
-  .tab-switch button.active {
-    background: white; color: var(--orange);
-    box-shadow: var(--shadow-sm);
+  .tab-switch button.active { background:white; color:var(--orange); box-shadow:var(--shadow-sm); }
+  .form-group { margin-bottom:14px; }
+  .form-label { font-size:12px; font-weight:500; color:var(--text2); margin-bottom:6px; display:block; }
+  input[type=text],input[type=password],input[type=number],input[type=date],input[type=time],select,textarea {
+    width:100%; padding:13px 16px;
+    border:2px solid var(--border); border-radius:var(--radius-sm);
+    font-family:'Noto Sans KR',sans-serif; font-size:14px; color:var(--text);
+    background:var(--surface); transition:border-color 0.2s; -webkit-appearance:none;
   }
-
-  .form-group { margin-bottom: 14px; }
-  .form-label {
-    font-size: 12px; font-weight: 500;
-    color: var(--text2); margin-bottom: 6px; display: block;
-  }
-  input[type=text], input[type=password], input[type=number], input[type=date], input[type=time], select {
-    width: 100%; padding: 13px 16px;
-    border: 2px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 14px; color: var(--text);
-    background: var(--surface);
-    transition: border-color 0.2s;
-    -webkit-appearance: none;
-  }
-  input:focus, select:focus {
-    outline: none; border-color: var(--orange);
-  }
-  input::placeholder { color: var(--text3); }
-
+  input:focus,select:focus,textarea:focus { outline:none; border-color:var(--orange); }
+  input::placeholder,textarea::placeholder { color:var(--text3); }
   .btn-main {
-    width: 100%; padding: 15px;
-    background: linear-gradient(135deg, var(--orange), var(--orange2));
-    border: none; border-radius: var(--radius-sm);
-    color: white; font-family: 'Noto Sans KR', sans-serif;
-    font-size: 15px; font-weight: 700;
-    cursor: pointer; transition: all 0.2s;
-    box-shadow: 0 4px 15px rgba(255,107,53,0.4);
-    letter-spacing: -0.3px;
+    width:100%; padding:15px; background:linear-gradient(135deg,var(--orange),var(--orange2));
+    border:none; border-radius:var(--radius-sm); color:white;
+    font-family:'Noto Sans KR',sans-serif; font-size:15px; font-weight:700;
+    cursor:pointer; transition:all 0.2s; box-shadow:0 4px 15px rgba(255,107,53,0.4);
+    letter-spacing:-0.3px; display:block; text-align:center;
   }
-  .btn-main:active { transform: scale(0.97); }
-
+  .btn-main:active { transform:scale(0.97); }
   .login-divider {
-    text-align: center; font-size: 11px; color: var(--text3);
-    margin: 14px 0; position: relative;
+    text-align:center; font-size:11px; color:var(--text3); margin:14px 0; position:relative;
   }
-  .login-divider::before, .login-divider::after {
-    content: ''; position: absolute;
-    top: 50%; width: 35%; height: 1px;
-    background: var(--border);
+  .login-divider::before,.login-divider::after {
+    content:''; position:absolute; top:50%; width:35%; height:1px; background:var(--border);
   }
-  .login-divider::before { left: 0; }
-  .login-divider::after { right: 0; }
+  .login-divider::before { left:0; } .login-divider::after { right:0; }
 
-  /* ══════════════════════════════════
-     APP HEADER
-  ══════════════════════════════════ */
+  /* ── REGISTER SCREEN ── */
+  #screen-register {
+    background:linear-gradient(160deg,#06D6A0,#118AB2);
+    align-items:center; justify-content:center; padding:40px 24px;
+  }
+
+  /* ── APP HEADER ── */
   .app-header {
-    background: white;
-    padding: 16px 20px 12px;
-    border-bottom: 2px solid var(--border);
-    position: sticky; top: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
+    background:white; padding:16px 20px 12px;
+    border-bottom:2px solid var(--border);
+    position:sticky; top:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
   }
-  .app-header-left { display: flex; align-items: center; gap: 10px; }
-  .header-logo {
-    font-family: 'Gaegu', cursive;
-    font-size: 26px; font-weight: 700;
-    color: var(--orange); line-height: 1;
-  }
-  .header-badge {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 8px; padding: 4px 10px;
-    font-size: 12px; color: var(--orange); font-weight: 500;
-  }
-  .btn-logout {
-    background: none; border: 1.5px solid var(--border);
-    border-radius: 10px; padding: 6px 12px;
-    font-size: 12px; color: var(--text3);
-    cursor: pointer; font-family: 'Noto Sans KR', sans-serif;
-    transition: all 0.15s;
-  }
-  .btn-logout:hover { border-color: var(--red); color: var(--red); }
+  .app-header-left { display:flex; align-items:center; gap:10px; }
+  .header-logo { font-family:'Gaegu',cursive; font-size:26px; font-weight:700; color:var(--orange); line-height:1; }
+  .header-badge { background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:4px 10px; font-size:12px; color:var(--orange); font-weight:500; }
+  .header-badge.super { background:#F3E8FF; border-color:#D8B4FE; color:var(--purple); }
+  .btn-logout { background:none; border:1.5px solid var(--border); border-radius:10px; padding:6px 12px; font-size:12px; color:var(--text3); cursor:pointer; font-family:'Noto Sans KR',sans-serif; transition:all 0.15s; }
+  .btn-logout:hover { border-color:var(--red); color:var(--red); }
 
-  /* ══════════════════════════════════
-     BOTTOM NAV
-  ══════════════════════════════════ */
+  /* ── BOTTOM NAV ── */
   .bottom-nav {
-    position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
-    width: 100%; max-width: 430px;
-    background: white;
-    border-top: 2px solid var(--border);
-    display: flex; z-index: 100;
-    padding-bottom: env(safe-area-inset-bottom);
+    position:fixed; bottom:0; left:50%; transform:translateX(-50%);
+    width:100%; max-width:430px; background:white;
+    border-top:2px solid var(--border); display:flex; z-index:100;
+    padding-bottom:env(safe-area-inset-bottom);
   }
   .nav-item {
-    flex: 1; display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    padding: 10px 0; gap: 3px;
-    background: none; border: none; cursor: pointer;
-    transition: all 0.15s;
-    font-family: 'Noto Sans KR', sans-serif;
+    flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:10px 0; gap:3px; background:none; border:none; cursor:pointer; transition:all 0.15s;
+    font-family:'Noto Sans KR',sans-serif;
   }
-  .nav-icon { font-size: 22px; transition: transform 0.2s; }
-  .nav-label { font-size: 10px; color: var(--text3); font-weight: 500; }
-  .nav-item.active .nav-icon { transform: scale(1.2); }
-  .nav-item.active .nav-label { color: var(--orange); font-weight: 700; }
+  .nav-icon { font-size:22px; transition:transform 0.2s; }
+  .nav-label { font-size:10px; color:var(--text3); font-weight:500; }
+  .nav-item.active .nav-icon { transform:scale(1.2); }
+  .nav-item.active .nav-label { color:var(--orange); font-weight:700; }
 
-  /* ══════════════════════════════════
-     MAIN CONTENT
-  ══════════════════════════════════ */
-  .content {
-    flex: 1; padding: 16px 16px 100px;
-    overflow-y: auto;
-  }
+  /* ── CONTENT ── */
+  .content { flex:1; padding:16px 16px 100px; overflow-y:auto; }
+  .page { display:none; }
+  .page.active { display:block; }
 
-  /* ── Page tabs ── */
-  .page { display: none; }
-  .page.active { display: block; }
+  /* ── CARDS ── */
+  .card { background:white; border-radius:var(--radius); padding:18px; margin-bottom:12px; box-shadow:var(--shadow-sm); border:1.5px solid var(--border); }
+  .card-label { font-size:11px; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:12px; display:flex; align-items:center; gap:6px; }
 
-  /* ── Section title ── */
-  .section-title {
-    font-family: 'Gaegu', cursive;
-    font-size: 22px; font-weight: 700;
-    color: var(--text); margin-bottom: 16px;
-  }
+  /* ── SUMMARY ── */
+  .summary-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; }
+  .summary-row.three { grid-template-columns:1fr 1fr 1fr; }
+  .summary-chip { background:var(--surface2); border-radius:var(--radius-sm); padding:14px; text-align:center; border:1.5px solid var(--border); }
+  .chip-val { font-size:20px; font-weight:700; color:var(--orange); display:block; font-family:'Gaegu',cursive; }
+  .chip-label { font-size:11px; color:var(--text2); margin-top:2px; }
 
-  /* ── Cards ── */
-  .card {
-    background: white; border-radius: var(--radius);
-    padding: 18px; margin-bottom: 12px;
-    box-shadow: var(--shadow-sm);
-    border: 1.5px solid var(--border);
-  }
+  /* ── LOG ITEMS ── */
+  .log-item { display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1.5px dashed var(--border); }
+  .log-item:last-child { border-bottom:none; padding-bottom:0; }
+  .log-date { font-size:13px; font-weight:500; }
+  .log-time { font-size:11px; color:var(--text3); margin-top:2px; }
+  .log-pay { font-size:15px; font-weight:700; color:var(--orange); }
+  .log-hours { font-size:11px; color:var(--text2); text-align:right; }
+  .log-actions { display:flex; gap:6px; margin-top:4px; justify-content:flex-end; }
 
-  .card-label {
-    font-size: 11px; font-weight: 700;
-    color: var(--orange); text-transform: uppercase;
-    letter-spacing: 0.5px; margin-bottom: 12px;
-    display: flex; align-items: center; gap: 6px;
-  }
+  /* ── STAFF ── */
+  .staff-item { display:flex; align-items:center; justify-content:space-between; padding:12px 0; border-bottom:1.5px dashed var(--border); }
+  .staff-item:last-child { border-bottom:none; }
+  .staff-avatar { width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,var(--orange),var(--yellow)); display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:700; color:white; font-family:'Gaegu',cursive; flex-shrink:0; }
+  .staff-name-wrap { flex:1; margin-left:12px; }
+  .staff-nm { font-size:14px; font-weight:500; }
+  .staff-wg { font-size:12px; color:var(--text2); }
 
-  /* ── Summary chips ── */
-  .summary-row {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 10px; margin-bottom: 12px;
-  }
-  .summary-chip {
-    background: var(--surface2);
-    border-radius: var(--radius-sm);
-    padding: 14px; text-align: center;
-    border: 1.5px solid var(--border);
-  }
-  .chip-val {
-    font-size: 20px; font-weight: 700;
-    color: var(--orange); display: block;
-    font-family: 'Gaegu', cursive;
-  }
-  .chip-label { font-size: 11px; color: var(--text2); margin-top: 2px; }
+  /* ── BUTTONS ── */
+  .btn { padding:8px 14px; border-radius:10px; border:none; cursor:pointer; font-family:'Noto Sans KR',sans-serif; font-size:12px; font-weight:500; transition:all 0.15s; }
+  .btn-orange { background:var(--orange); color:white; }
+  .btn-green { background:var(--green); color:white; }
+  .btn-outline { background:none; border:1.5px solid var(--border); color:var(--text2); }
+  .btn-red { background:none; border:1.5px solid var(--red); color:var(--red); }
+  .btn-purple { background:var(--purple); color:white; }
+  .btn-full { width:100%; padding:14px; font-size:15px; font-weight:700; border-radius:var(--radius-sm); }
+  .btn-excel { background:linear-gradient(135deg,#1D6F42,#21A366); color:white; display:flex; align-items:center; gap:6px; padding:10px 16px; border-radius:10px; border:none; cursor:pointer; font-family:'Noto Sans KR',sans-serif; font-size:13px; font-weight:600; }
 
-  /* ── Log item ── */
-  .log-item {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 12px 0;
-    border-bottom: 1.5px dashed var(--border);
-  }
-  .log-item:last-child { border-bottom: none; padding-bottom: 0; }
-  .log-date { font-size: 13px; font-weight: 500; color: var(--text); }
-  .log-time { font-size: 11px; color: var(--text3); margin-top: 2px; }
-  .log-pay { font-size: 15px; font-weight: 700; color: var(--orange); }
-  .log-hours { font-size: 11px; color: var(--text2); text-align: right; }
+  /* ── MONTH NAV ── */
+  .month-nav { display:flex; align-items:center; justify-content:center; gap:16px; margin-bottom:16px; }
+  .month-nav button { width:34px; height:34px; border-radius:50%; background:white; border:1.5px solid var(--border); font-size:16px; cursor:pointer; color:var(--orange); display:flex; align-items:center; justify-content:center; transition:all 0.15s; }
+  .month-nav button:active { background:var(--surface2); }
+  .month-text { font-family:'Gaegu',cursive; font-size:22px; font-weight:700; color:var(--text); }
 
-  /* ── Staff item ── */
-  .staff-item {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 12px 0; border-bottom: 1.5px dashed var(--border);
-  }
-  .staff-item:last-child { border-bottom: none; }
-  .staff-avatar {
-    width: 40px; height: 40px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--orange), var(--yellow));
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px; font-weight: 700; color: white;
-    font-family: 'Gaegu', cursive; flex-shrink: 0;
-  }
-  .staff-name-wrap { flex: 1; margin-left: 12px; }
-  .staff-nm { font-size: 14px; font-weight: 500; }
-  .staff-wg { font-size: 12px; color: var(--text2); }
-  .staff-total { font-size: 14px; font-weight: 700; color: var(--orange); }
+  /* ── FORM ── */
+  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; }
+  .form-row.three { grid-template-columns:1fr 1fr 1fr; }
 
-  /* ── Buttons ── */
-  .btn {
-    padding: 10px 18px; border-radius: 10px;
-    border: none; cursor: pointer;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 13px; font-weight: 500;
-    transition: all 0.15s;
-  }
-  .btn-orange { background: var(--orange); color: white; }
-  .btn-orange:active { opacity: 0.85; }
-  .btn-outline {
-    background: none; border: 1.5px solid var(--border);
-    color: var(--text2);
-  }
-  .btn-red { background: none; border: 1.5px solid var(--red); color: var(--red); font-size: 12px; padding: 7px 12px; }
-  .btn-full { width: 100%; padding: 14px; font-size: 15px; font-weight: 700; border-radius: var(--radius-sm); }
+  /* ── ADMIN STAFF EXPAND ── */
+  .admin-staff-card { background:white; border-radius:var(--radius); border:1.5px solid var(--border); margin-bottom:10px; overflow:hidden; box-shadow:var(--shadow-sm); }
+  .admin-staff-header { display:flex; align-items:center; justify-content:space-between; padding:14px 16px; cursor:pointer; }
+  .admin-staff-body { padding:0 16px 14px; display:none; }
+  .admin-staff-body.open { display:block; }
+  .admin-log-row { display:flex; justify-content:space-between; align-items:center; font-size:12px; padding:8px 0; border-bottom:1px dashed var(--border); color:var(--text2); gap:8px; }
+  .admin-log-row:last-child { border-bottom:none; }
 
-  /* ── Month nav ── */
-  .month-nav {
-    display: flex; align-items: center; justify-content: center;
-    gap: 16px; margin-bottom: 16px;
-  }
-  .month-nav button {
-    width: 34px; height: 34px; border-radius: 50%;
-    background: white; border: 1.5px solid var(--border);
-    font-size: 16px; cursor: pointer; color: var(--orange);
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.15s;
-  }
-  .month-nav button:active { background: var(--surface2); }
-  .month-text {
-    font-family: 'Gaegu', cursive;
-    font-size: 22px; font-weight: 700; color: var(--text);
-  }
+  /* ── SUPER ADMIN ── */
+  .super-shop-card { background:white; border-radius:var(--radius); border:2px solid #D8B4FE; margin-bottom:10px; overflow:hidden; box-shadow:0 2px 12px rgba(123,47,190,0.1); }
+  .super-shop-header { display:flex; align-items:center; justify-content:space-between; padding:14px 16px; cursor:pointer; }
+  .super-shop-body { padding:0 16px 14px; display:none; }
+  .super-shop-body.open { display:block; }
 
-  /* ── Form inline ── */
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
-  .form-row.three { grid-template-columns: 1fr 1fr 1fr; }
+  /* ── MODAL ── */
+  .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:200; align-items:flex-end; justify-content:center; }
+  .modal-overlay.open { display:flex; }
+  .modal { background:white; border-radius:24px 24px 0 0; padding:28px 24px 40px; width:100%; max-width:430px; animation:slideUp 0.3s cubic-bezier(.34,1.56,.64,1); }
+  @keyframes slideUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
+  .modal-title { font-family:'Gaegu',cursive; font-size:22px; font-weight:700; margin-bottom:18px; color:var(--text); }
+  .modal-footer { display:flex; gap:8px; margin-top:18px; }
 
-  /* ── Empty ── */
-  .empty {
-    text-align: center; padding: 36px 16px;
-    color: var(--text3); font-size: 13px; line-height: 1.8;
-  }
-  .empty-emoji { font-size: 40px; display: block; margin-bottom: 10px; }
+  /* ── TOAST ── */
+  .toast { position:fixed; bottom:90px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--text); color:white; padding:11px 22px; border-radius:50px; font-size:13px; font-weight:500; opacity:0; transition:all 0.3s cubic-bezier(.34,1.56,.64,1); z-index:999; white-space:nowrap; pointer-events:none; }
+  .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 
-  /* ── Toast ── */
-  .toast {
-    position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px);
-    background: var(--text); color: white;
-    padding: 11px 22px; border-radius: 50px;
-    font-size: 13px; font-weight: 500;
-    opacity: 0; transition: all 0.3s cubic-bezier(.34,1.56,.64,1);
-    z-index: 999; white-space: nowrap; pointer-events: none;
-  }
-  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  /* ── EMPTY ── */
+  .empty { text-align:center; padding:36px 16px; color:var(--text3); font-size:13px; line-height:1.8; }
+  .empty-emoji { font-size:40px; display:block; margin-bottom:10px; }
 
-  /* ── Loading ── */
-  .loader {
-    display: flex; align-items: center; justify-content: center;
-    height: 100vh; font-size: 40px;
-    animation: spin 1s linear infinite;
-    flex-direction: column; gap: 12px;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .loader-text { font-family: 'Gaegu', cursive; font-size: 20px; color: var(--orange); animation: none; }
-
-  /* ── Admin staff expand ── */
-  .admin-staff-card {
-    background: white; border-radius: var(--radius);
-    border: 1.5px solid var(--border);
-    margin-bottom: 10px; overflow: hidden;
-    box-shadow: var(--shadow-sm);
-  }
-  .admin-staff-header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 16px; cursor: pointer;
-  }
-  .admin-staff-body { padding: 0 16px 14px; display: none; }
-  .admin-staff-body.open { display: block; }
-  .admin-log-row {
-    display: flex; justify-content: space-between;
-    font-size: 12px; padding: 6px 0;
-    border-bottom: 1px dashed var(--border); color: var(--text2);
-  }
-  .admin-log-row:last-child { border-bottom: none; }
-
-  /* ── Scroll fix ── */
-  .scroll-area { overflow-y: auto; }
-
-  /* ── Status pill ── */
-  .pill {
-    display: inline-block; padding: 3px 10px;
-    border-radius: 50px; font-size: 11px; font-weight: 600;
-  }
-  .pill-green { background: rgba(6,214,160,0.15); color: var(--green); }
-  .pill-orange { background: rgba(255,107,53,0.15); color: var(--orange); }
-
-  /* ── Worker select ── */
-  select { cursor: pointer; }
-
-  /* ── Input number no spinner ── */
-  input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; }
-
-  /* Divider */
-  hr { border: none; border-top: 1.5px dashed var(--border); margin: 14px 0; }
+  /* ── MISC ── */
+  input[type=number]::-webkit-inner-spin-button { -webkit-appearance:none; }
+  select { cursor:pointer; }
+  .divider { height:1px; background:var(--border); margin:14px 0; border:none; }
+  .pill { display:inline-block; padding:3px 10px; border-radius:50px; font-size:11px; font-weight:600; }
+  .pill-green { background:rgba(6,214,160,0.15); color:var(--green); }
+  .pill-red { background:rgba(239,71,111,0.15); color:var(--red); }
+  .pill-purple { background:rgba(123,47,190,0.15); color:var(--purple); }
 </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════
-  LOADING
-══════════════════════════════════════ -->
+<!-- LOADING -->
 <div id="screen-loading" class="screen active" style="align-items:center;justify-content:center;background:var(--bg);">
   <div style="text-align:center;">
     <div style="font-size:56px;animation:wobble 1s infinite;">🍳</div>
@@ -411,82 +233,58 @@
   </div>
 </div>
 
-<!-- ══════════════════════════════════════
-  LOGIN SCREEN
-══════════════════════════════════════ -->
+<!-- LOGIN -->
 <div id="screen-login" class="screen">
   <div class="login-box">
-    <div class="login-logo">
-      <span class="login-emoji">🍳</span>
-      <div class="login-title">알밥</div>
-      <div class="login-sub">알바비 관리의 모든 것</div>
-    </div>
+    <span class="login-emoji">🍳</span>
+    <div class="login-title">알밥</div>
+    <div class="login-sub">알바비 관리의 모든 것</div>
 
     <div class="tab-switch">
-      <button class="active" id="tab-shop" onclick="switchLoginTab('shop')">🏪 가게 로그인</button>
-      <button id="tab-worker" onclick="switchLoginTab('worker')">👤 직원 로그인</button>
+      <button class="active" id="tab-shop" onclick="switchLoginTab('shop')">🏪 가게</button>
+      <button id="tab-worker" onclick="switchLoginTab('worker')">👤 직원</button>
+      <button id="tab-super" onclick="switchLoginTab('super')">👑 관리자</button>
     </div>
 
     <!-- 가게 로그인 -->
     <div id="login-shop-form">
-      <div class="form-group">
-        <label class="form-label">가게 코드</label>
-        <input type="text" id="inp-shop-code" placeholder="가게 코드 입력 (예: DAMDAM)" style="text-transform:uppercase;">
-      </div>
-      <div class="form-group">
-        <label class="form-label">사장님 비밀번호</label>
-        <input type="password" id="inp-shop-pw" placeholder="비밀번호">
-      </div>
+      <div class="form-group"><label class="form-label">가게 코드</label><input type="text" id="inp-shop-code" placeholder="DAMDAM" style="text-transform:uppercase;"></div>
+      <div class="form-group"><label class="form-label">사장님 비밀번호</label><input type="password" id="inp-shop-pw" placeholder="비밀번호"></div>
       <button class="btn-main" onclick="loginShop()">🔑 로그인</button>
       <div class="login-divider">또는</div>
-      <button class="btn-main" style="background:linear-gradient(135deg,#06D6A0,#118AB2);" onclick="showRegisterShop()">✨ 새 가게 등록</button>
+      <button class="btn-main" style="background:linear-gradient(135deg,#06D6A0,#118AB2);" onclick="showScreen('screen-register')">✨ 새 가게 등록</button>
     </div>
 
     <!-- 직원 로그인 -->
     <div id="login-worker-form" style="display:none;">
-      <div class="form-group">
-        <label class="form-label">가게 코드</label>
-        <input type="text" id="inp-w-shop-code" placeholder="가게 코드 입력" style="text-transform:uppercase;">
-      </div>
-      <div class="form-group">
-        <label class="form-label">내 이름</label>
-        <input type="text" id="inp-w-name" placeholder="홍길동">
-      </div>
-      <div class="form-group">
-        <label class="form-label">직원 PIN (4자리)</label>
-        <input type="password" id="inp-w-pin" placeholder="0000" maxlength="4" inputmode="numeric">
-      </div>
-      <button class="btn-main" onclick="loginWorker()">👋 출근 시작!</button>
+      <div class="form-group"><label class="form-label">가게 코드</label><input type="text" id="inp-w-shop-code" placeholder="DAMDAM" style="text-transform:uppercase;"></div>
+      <div class="form-group"><label class="form-label">이름</label><input type="text" id="inp-w-name" placeholder="홍길동"></div>
+      <div class="form-group"><label class="form-label">PIN (4자리)</label><input type="password" id="inp-w-pin" placeholder="0000" maxlength="4" inputmode="numeric"></div>
+      <button class="btn-main" onclick="loginWorker()">👋 출근!</button>
+    </div>
+
+    <!-- 슈퍼 어드민 -->
+    <div id="login-super-form" style="display:none;">
+      <div class="form-group"><label class="form-label">관리자 코드</label><input type="text" id="inp-su-code" placeholder="관리자 코드" style="text-transform:uppercase;"></div>
+      <div class="form-group"><label class="form-label">비밀번호</label><input type="password" id="inp-su-pw" placeholder="비밀번호"></div>
+      <button class="btn-main" style="background:linear-gradient(135deg,#7B2FBE,#A855F7);" onclick="loginSuper()">👑 관리자 로그인</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════
-  REGISTER SHOP SCREEN
-══════════════════════════════════════ -->
+<!-- REGISTER -->
 <div id="screen-register" class="screen" style="background:linear-gradient(160deg,#06D6A0,#118AB2);align-items:center;justify-content:center;padding:40px 24px;">
   <div class="login-box">
     <div style="font-family:'Gaegu',cursive;font-size:24px;font-weight:700;margin-bottom:20px;color:var(--orange);">🏪 새 가게 등록</div>
-    <div class="form-group">
-      <label class="form-label">가게 이름</label>
-      <input type="text" id="reg-shop-name" placeholder="담담">
-    </div>
-    <div class="form-group">
-      <label class="form-label">가게 코드 (영문+숫자, 직원들이 쓸 코드)</label>
-      <input type="text" id="reg-shop-code" placeholder="DAMDAM" style="text-transform:uppercase;" maxlength="10">
-    </div>
-    <div class="form-group">
-      <label class="form-label">사장님 비밀번호</label>
-      <input type="password" id="reg-shop-pw" placeholder="비밀번호 설정">
-    </div>
-    <button class="btn-main" onclick="registerShop()" style="margin-bottom:10px;">✅ 가게 등록하기</button>
+    <div class="form-group"><label class="form-label">가게 이름</label><input type="text" id="reg-shop-name" placeholder="담담"></div>
+    <div class="form-group"><label class="form-label">가게 코드 (영문+숫자)</label><input type="text" id="reg-shop-code" placeholder="DAMDAM" style="text-transform:uppercase;" maxlength="10"></div>
+    <div class="form-group"><label class="form-label">사장님 비밀번호</label><input type="password" id="reg-shop-pw" placeholder="비밀번호 설정"></div>
+    <button class="btn-main" onclick="registerShop()" style="margin-bottom:10px;">✅ 등록하기</button>
     <button class="btn-main" style="background:white;color:var(--text2);box-shadow:none;" onclick="showScreen('screen-login')">← 돌아가기</button>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════
-  WORKER APP SCREEN
-══════════════════════════════════════ -->
+<!-- ══════════ WORKER SCREEN ══════════ -->
 <div id="screen-worker" class="screen" style="flex-direction:column;background:var(--bg);">
   <div class="app-header">
     <div class="app-header-left">
@@ -495,7 +293,6 @@
     </div>
     <button class="btn-logout" onclick="logout()">로그아웃</button>
   </div>
-
   <div class="content">
     <!-- 홈 -->
     <div class="page active" id="wpage-home">
@@ -503,36 +300,19 @@
         <div style="font-family:'Gaegu',cursive;font-size:28px;font-weight:700;line-height:1.2;" id="worker-greeting">안녕하세요! 👋</div>
         <div style="font-size:13px;color:var(--text2);margin-top:4px;" id="worker-sub">오늘도 수고하세요 🍳</div>
       </div>
-
-      <div class="summary-row" id="worker-summary">
-        <div class="summary-chip">
-          <span class="chip-val" id="w-month-hours">0h</span>
-          <div class="chip-label">이번 달 근무</div>
-        </div>
-        <div class="summary-chip">
-          <span class="chip-val" id="w-month-pay">0원</span>
-          <div class="chip-label">예상 급여</div>
-        </div>
+      <div class="summary-row">
+        <div class="summary-chip"><span class="chip-val" id="w-month-hours">0h</span><div class="chip-label">이번 달 근무</div></div>
+        <div class="summary-chip"><span class="chip-val" id="w-month-pay">0원</span><div class="chip-label">예상 급여</div></div>
       </div>
-
       <div class="card">
         <div class="card-label">📝 근무 기록 추가</div>
-        <div class="form-group">
-          <label class="form-label">날짜</label>
-          <input type="date" id="w-log-date">
-        </div>
+        <div class="form-group"><label class="form-label">날짜</label><input type="date" id="w-log-date"></div>
         <div class="form-row">
-          <div class="form-group" style="margin:0;">
-            <label class="form-label">출근 시간</label>
-            <input type="time" id="w-log-in" value="09:00">
-          </div>
-          <div class="form-group" style="margin:0;">
-            <label class="form-label">퇴근 시간</label>
-            <input type="time" id="w-log-out" value="18:00">
-          </div>
+          <div class="form-group" style="margin:0;"><label class="form-label">출근</label><input type="time" id="w-log-in" value="09:00"></div>
+          <div class="form-group" style="margin:0;"><label class="form-label">퇴근</label><input type="time" id="w-log-out" value="18:00"></div>
         </div>
-        <div style="margin-top:14px; background:var(--surface2); border-radius:10px; padding:12px; text-align:center; margin-bottom:14px;">
-          <span style="font-size:12px;color:var(--text2);">근무시간 </span>
+        <div style="margin:14px 0;background:var(--surface2);border-radius:10px;padding:12px;text-align:center;">
+          <span style="font-size:12px;color:var(--text2);">근무 </span>
           <span style="font-family:'Gaegu',cursive;font-size:20px;color:var(--orange);font-weight:700;" id="w-calc-hours">0h</span>
           <span style="font-size:12px;color:var(--text2);"> · 예상 </span>
           <span style="font-family:'Gaegu',cursive;font-size:20px;color:var(--orange);font-weight:700;" id="w-calc-pay">0원</span>
@@ -540,7 +320,6 @@
         <button class="btn btn-orange btn-full" onclick="addWorkerLog()">+ 기록 추가</button>
       </div>
     </div>
-
     <!-- 내 기록 -->
     <div class="page" id="wpage-history">
       <div class="month-nav">
@@ -549,11 +328,12 @@
         <button onclick="changeWorkerMonth(1)">›</button>
       </div>
       <div class="card">
-        <div class="card-label">📋 근무 기록</div>
+        <div class="card-label" style="justify-content:space-between;">
+          <span>📋 근무 기록</span>
+        </div>
         <div id="w-log-list"></div>
       </div>
       <div class="card" style="background:linear-gradient(135deg,var(--surface2),white);">
-        <div class="card-label">💰 이번 달 합계</div>
         <div style="display:flex;justify-content:space-between;align-items:center;">
           <div>
             <div style="font-size:13px;color:var(--text2);" id="w-total-hours-label">총 0시간</div>
@@ -564,22 +344,13 @@
       </div>
     </div>
   </div>
-
   <div class="bottom-nav">
-    <button class="nav-item active" onclick="switchWorkerPage('home', this)">
-      <span class="nav-icon">🏠</span>
-      <span class="nav-label">홈</span>
-    </button>
-    <button class="nav-item" onclick="switchWorkerPage('history', this)">
-      <span class="nav-icon">📋</span>
-      <span class="nav-label">내 기록</span>
-    </button>
+    <button class="nav-item active" onclick="switchWorkerPage('home',this)"><span class="nav-icon">🏠</span><span class="nav-label">홈</span></button>
+    <button class="nav-item" onclick="switchWorkerPage('history',this)"><span class="nav-icon">📋</span><span class="nav-label">내 기록</span></button>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════
-  ADMIN APP SCREEN
-══════════════════════════════════════ -->
+<!-- ══════════ ADMIN SCREEN ══════════ -->
 <div id="screen-admin" class="screen" style="flex-direction:column;background:var(--bg);">
   <div class="app-header">
     <div class="app-header-left">
@@ -588,60 +359,40 @@
     </div>
     <button class="btn-logout" onclick="logout()">로그아웃</button>
   </div>
-
   <div class="content">
-    <!-- 관리자 홈 -->
+    <!-- 정산 -->
     <div class="page active" id="apage-home">
       <div class="month-nav">
         <button onclick="changeAdminMonth(-1)">‹</button>
         <div class="month-text" id="a-month-text"></div>
         <button onclick="changeAdminMonth(1)">›</button>
       </div>
-
       <div class="summary-row">
-        <div class="summary-chip">
-          <span class="chip-val" id="a-total-staff">0명</span>
-          <div class="chip-label">직원 수</div>
-        </div>
-        <div class="summary-chip">
-          <span class="chip-val" id="a-total-pay">0원</span>
-          <div class="chip-label">총 급여</div>
-        </div>
+        <div class="summary-chip"><span class="chip-val" id="a-total-staff">0명</span><div class="chip-label">직원 수</div></div>
+        <div class="summary-chip"><span class="chip-val" id="a-total-pay">0원</span><div class="chip-label">총 급여</div></div>
       </div>
-
+      <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
+        <button class="btn-excel" onclick="exportAdminExcel()">📊 엑셀 다운로드</button>
+      </div>
       <div id="a-staff-list"></div>
     </div>
-
     <!-- 직원 관리 -->
     <div class="page" id="apage-staff">
       <div class="card">
         <div class="card-label">➕ 직원 등록</div>
-        <div class="form-group">
-          <label class="form-label">이름</label>
-          <input type="text" id="a-staff-name" placeholder="홍길동">
-        </div>
+        <div class="form-group"><label class="form-label">이름</label><input type="text" id="a-staff-name" placeholder="홍길동"></div>
         <div class="form-row">
-          <div class="form-group" style="margin:0;">
-            <label class="form-label">시급 (원)</label>
-            <input type="number" id="a-staff-wage" placeholder="10030">
-          </div>
-          <div class="form-group" style="margin:0;">
-            <label class="form-label">PIN (4자리)</label>
-            <input type="password" id="a-staff-pin" placeholder="0000" maxlength="4" inputmode="numeric">
-          </div>
+          <div class="form-group" style="margin:0;"><label class="form-label">시급 (원)</label><input type="number" id="a-staff-wage" placeholder="10030"></div>
+          <div class="form-group" style="margin:0;"><label class="form-label">PIN (4자리)</label><input type="password" id="a-staff-pin" placeholder="0000" maxlength="4" inputmode="numeric"></div>
         </div>
-        <div style="margin-top:14px;">
-          <button class="btn btn-orange btn-full" onclick="addStaff()">직원 추가</button>
-        </div>
+        <div style="margin-top:14px;"><button class="btn btn-orange btn-full" onclick="addStaff()">직원 추가</button></div>
       </div>
-
       <div class="card">
         <div class="card-label">👥 등록된 직원</div>
         <div id="a-staff-list-manage"></div>
       </div>
     </div>
-
-    <!-- 가게 코드 -->
+    <!-- 가게 정보 -->
     <div class="page" id="apage-info">
       <div class="card" style="text-align:center;">
         <div class="card-label" style="justify-content:center;">🏪 내 가게 정보</div>
@@ -651,35 +402,81 @@
         <div style="background:var(--surface2);border:2px dashed var(--orange);border-radius:16px;padding:20px;margin-bottom:16px;">
           <div style="font-family:'Gaegu',cursive;font-size:42px;font-weight:700;color:var(--orange);letter-spacing:4px;" id="info-shop-code">-</div>
         </div>
-        <div style="font-size:12px;color:var(--text3);line-height:1.8;">
-          직원들은 이 코드로 로그인해요<br>
-          이름과 PIN을 알아야 입장 가능해요 🔒
-        </div>
+        <div style="font-size:12px;color:var(--text3);line-height:1.8;">직원들은 이 코드로 로그인해요<br>이름과 PIN을 알아야 입장 가능해요 🔒</div>
       </div>
     </div>
   </div>
-
   <div class="bottom-nav">
-    <button class="nav-item active" onclick="switchAdminPage('home', this)">
-      <span class="nav-icon">📊</span>
-      <span class="nav-label">정산</span>
-    </button>
-    <button class="nav-item" onclick="switchAdminPage('staff', this)">
-      <span class="nav-icon">👥</span>
-      <span class="nav-label">직원관리</span>
-    </button>
-    <button class="nav-item" onclick="switchAdminPage('info', this)">
-      <span class="nav-icon">🏪</span>
-      <span class="nav-label">가게정보</span>
-    </button>
+    <button class="nav-item active" onclick="switchAdminPage('home',this)"><span class="nav-icon">📊</span><span class="nav-label">정산</span></button>
+    <button class="nav-item" onclick="switchAdminPage('staff',this)"><span class="nav-icon">👥</span><span class="nav-label">직원관리</span></button>
+    <button class="nav-item" onclick="switchAdminPage('info',this)"><span class="nav-icon">🏪</span><span class="nav-label">가게정보</span></button>
   </div>
 </div>
 
-<!-- Toast -->
+<!-- ══════════ SUPER ADMIN SCREEN ══════════ -->
+<div id="screen-super" class="screen" style="flex-direction:column;background:#FAF5FF;">
+  <div class="app-header" style="border-bottom-color:#D8B4FE;">
+    <div class="app-header-left">
+      <div class="header-logo" style="color:var(--purple);">👑 알밥</div>
+      <div class="header-badge super">슈퍼 어드민</div>
+    </div>
+    <button class="btn-logout" onclick="logout()">로그아웃</button>
+  </div>
+  <div class="content">
+    <div class="page active" id="spage-home">
+      <div style="padding:8px 0 16px;">
+        <div style="font-family:'Gaegu',cursive;font-size:26px;font-weight:700;color:var(--purple);">👑 전체 관리</div>
+        <div style="font-size:12px;color:#A855F7;margin-top:4px;">모든 가게를 관리할 수 있어요</div>
+      </div>
+      <div class="summary-row three" id="super-summary">
+        <div class="summary-chip" style="border-color:#D8B4FE;"><span class="chip-val" style="color:var(--purple);" id="su-total-shops">0</span><div class="chip-label">총 가게</div></div>
+        <div class="summary-chip" style="border-color:#D8B4FE;"><span class="chip-val" style="color:var(--purple);" id="su-total-staff">0</span><div class="chip-label">총 직원</div></div>
+        <div class="summary-chip" style="border-color:#D8B4FE;"><span class="chip-val" style="color:var(--purple);" id="su-total-pay">0</span><div class="chip-label">이번달 급여</div></div>
+      </div>
+      <div id="su-shop-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ MODALS ══════════ -->
+<!-- 기록 수정 모달 -->
+<div class="modal-overlay" id="modal-edit-log">
+  <div class="modal">
+    <div class="modal-title">✏️ 근무 기록 수정</div>
+    <input type="hidden" id="edit-log-id">
+    <div class="form-group"><label class="form-label">날짜</label><input type="date" id="edit-log-date"></div>
+    <div class="form-row">
+      <div class="form-group" style="margin:0;"><label class="form-label">출근</label><input type="time" id="edit-log-in"></div>
+      <div class="form-group" style="margin:0;"><label class="form-label">퇴근</label><input type="time" id="edit-log-out"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" style="flex:1;" onclick="closeModal('modal-edit-log')">취소</button>
+      <button class="btn btn-orange" style="flex:2;" onclick="saveLogEdit()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- 직원 시급 수정 모달 -->
+<div class="modal-overlay" id="modal-edit-staff">
+  <div class="modal">
+    <div class="modal-title">✏️ 직원 정보 수정</div>
+    <input type="hidden" id="edit-staff-id">
+    <div class="form-group"><label class="form-label">이름</label><input type="text" id="edit-staff-name"></div>
+    <div class="form-row">
+      <div class="form-group" style="margin:0;"><label class="form-label">시급</label><input type="number" id="edit-staff-wage"></div>
+      <div class="form-group" style="margin:0;"><label class="form-label">새 PIN (변경시만)</label><input type="password" id="edit-staff-pin" placeholder="그대로면 비워두기" maxlength="4"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" style="flex:1;" onclick="closeModal('modal-edit-staff')">취소</button>
+      <button class="btn btn-orange" style="flex:2;" onclick="saveStaffEdit()">저장</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <!-- ══════════════════════════════════════
-  FIREBASE + APP LOGIC
+  FIREBASE + LOGIC
 ══════════════════════════════════════ -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
@@ -695,41 +492,41 @@ const firebaseConfig = {
   appId: "1:234606906106:web:cd80a6ee2957d243bf5743"
 };
 
+// ── 슈퍼 어드민 설정 (여기서 변경하세요) ──
+const SUPER_CODE = 'DJMONNAR1';
+const SUPER_PW   = 'rotozl12!'; // ⚠️ 나중에 꼭 바꾸세요!
+
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const db  = getFirestore(app);
 
-// ══════════════════════════════════
-//  State
-// ══════════════════════════════════
-let session = null; // { type:'admin'|'worker', shopCode, shopName, workerName, workerWage, workerId }
-let adminMonth = { y: new Date().getFullYear(), m: new Date().getMonth()+1 };
+// ══ State ══
+let session = null;
+let adminMonth  = { y: new Date().getFullYear(), m: new Date().getMonth()+1 };
 let workerMonth = { y: new Date().getFullYear(), m: new Date().getMonth()+1 };
+let editLogCallback = null;
 
-// ══════════════════════════════════
-//  Utility
-// ══════════════════════════════════
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+// ══ Utils ══
+window.showScreen = id => {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-}
+};
 
 function showToast(msg) {
   const el = document.getElementById('toast');
   el.textContent = msg;
   el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 2500);
+  setTimeout(()=>el.classList.remove('show'), 2500);
 }
 
 function calcHours(inT, outT) {
-  const [ih,im] = inT.split(':').map(Number);
-  const [oh,om] = outT.split(':').map(Number);
-  let mins = (oh*60+om)-(ih*60+im);
-  if (mins < 0) mins += 1440;
+  const [ih,im]=inT.split(':').map(Number);
+  const [oh,om]=outT.split(':').map(Number);
+  let mins=(oh*60+om)-(ih*60+im);
+  if(mins<0) mins+=1440;
   return Math.round(mins/60*100)/100;
 }
 
-function formatMoney(n) { return Math.round(n).toLocaleString('ko-KR'); }
-
+function fmt(n) { return Math.round(n).toLocaleString('ko-KR'); }
 function monthPrefix(y,m) { return `${y}-${String(m).padStart(2,'0')}`; }
 
 function updateMonthTexts() {
@@ -737,361 +534,507 @@ function updateMonthTexts() {
   document.getElementById('w-month-text').textContent = `${workerMonth.y}.${String(workerMonth.m).padStart(2,'0')}`;
 }
 
-// ══════════════════════════════════
-//  Login tab switch
-// ══════════════════════════════════
-window.switchLoginTab = (tab) => {
-  document.getElementById('login-shop-form').style.display = tab==='shop' ? 'block' : 'none';
-  document.getElementById('login-worker-form').style.display = tab==='worker' ? 'block' : 'none';
-  document.getElementById('tab-shop').classList.toggle('active', tab==='shop');
-  document.getElementById('tab-worker').classList.toggle('active', tab==='worker');
+window.closeModal = id => document.getElementById(id).classList.remove('open');
+
+// ══ Login tabs ══
+window.switchLoginTab = tab => {
+  ['shop','worker','super'].forEach(t=>{
+    document.getElementById('login-'+t+'-form').style.display = t===tab?'block':'none';
+    document.getElementById('tab-'+t).classList.toggle('active', t===tab);
+  });
 };
 
-window.showRegisterShop = () => showScreen('screen-register');
-window.showScreen = showScreen;
-
-// ══════════════════════════════════
-//  Register Shop
-// ══════════════════════════════════
+// ══ Register Shop ══
 window.registerShop = async () => {
   const name = document.getElementById('reg-shop-name').value.trim();
   const code = document.getElementById('reg-shop-code').value.trim().toUpperCase();
-  const pw = document.getElementById('reg-shop-pw').value;
-  if (!name || !code || !pw) return showToast('모든 항목을 입력해주세요');
+  const pw   = document.getElementById('reg-shop-pw').value;
+  if (!name||!code||!pw) return showToast('모든 항목을 입력해주세요');
   if (!/^[A-Z0-9]+$/.test(code)) return showToast('코드는 영문+숫자만 가능해요');
-
   try {
-    const ref = doc(db, 'shops', code);
+    const ref  = doc(db,'shops',code);
     const snap = await getDoc(ref);
     if (snap.exists()) return showToast('이미 사용 중인 코드예요');
     await setDoc(ref, { name, code, pw, createdAt: Date.now() });
-    showToast(`${name} 가게 등록 완료! 🎉`);
-    setTimeout(() => showScreen('screen-login'), 1200);
-  } catch(e) {
-    showToast('오류가 발생했어요: ' + e.message);
-  }
+    showToast(`${name} 등록 완료! 🎉`);
+    setTimeout(()=>showScreen('screen-login'), 1200);
+  } catch(e) { showToast('오류: '+e.message); }
 };
 
-// ══════════════════════════════════
-//  Login Shop (Admin)
-// ══════════════════════════════════
+// ══ Login Shop ══
 window.loginShop = async () => {
   const code = document.getElementById('inp-shop-code').value.trim().toUpperCase();
-  const pw = document.getElementById('inp-shop-pw').value;
-  if (!code || !pw) return showToast('가게 코드와 비밀번호를 입력해주세요');
-
+  const pw   = document.getElementById('inp-shop-pw').value;
+  if (!code||!pw) return showToast('가게 코드와 비밀번호를 입력해주세요');
   try {
-    const snap = await getDoc(doc(db, 'shops', code));
+    const snap = await getDoc(doc(db,'shops',code));
     if (!snap.exists()) return showToast('가게 코드를 찾을 수 없어요');
     const shop = snap.data();
     if (shop.pw !== pw) return showToast('비밀번호가 틀렸어요');
-
     session = { type:'admin', shopCode:code, shopName:shop.name };
     document.getElementById('admin-shop-badge').textContent = shop.name;
-    document.getElementById('info-shop-name').textContent = shop.name;
-    document.getElementById('info-shop-code').textContent = code;
+    document.getElementById('info-shop-name').textContent  = shop.name;
+    document.getElementById('info-shop-code').textContent  = code;
     updateMonthTexts();
     showScreen('screen-admin');
     renderAdminHome();
     renderAdminStaffManage();
-  } catch(e) { showToast('오류: ' + e.message); }
+  } catch(e) { showToast('오류: '+e.message); }
 };
 
-// ══════════════════════════════════
-//  Login Worker
-// ══════════════════════════════════
+// ══ Login Worker ══
 window.loginWorker = async () => {
   const shopCode = document.getElementById('inp-w-shop-code').value.trim().toUpperCase();
-  const name = document.getElementById('inp-w-name').value.trim();
-  const pin = document.getElementById('inp-w-pin').value;
-  if (!shopCode || !name || !pin) return showToast('모두 입력해주세요');
-
+  const name     = document.getElementById('inp-w-name').value.trim();
+  const pin      = document.getElementById('inp-w-pin').value;
+  if (!shopCode||!name||!pin) return showToast('모두 입력해주세요');
   try {
-    // 가게 존재 확인
-    const shopSnap = await getDoc(doc(db, 'shops', shopCode));
+    const shopSnap = await getDoc(doc(db,'shops',shopCode));
     if (!shopSnap.exists()) return showToast('가게 코드를 찾을 수 없어요');
-
-    // 직원 찾기
-    const q = query(collection(db, 'staff'),
-      where('shopCode', '==', shopCode),
-      where('name', '==', name));
+    const q    = query(collection(db,'staff'), where('shopCode','==',shopCode), where('name','==',name));
     const snap = await getDocs(q);
     if (snap.empty) return showToast('등록된 직원을 찾을 수 없어요');
-
     const staffDoc = snap.docs[0];
-    const staff = staffDoc.data();
+    const staff    = staffDoc.data();
     if (staff.pin !== pin) return showToast('PIN이 틀렸어요');
-
     session = { type:'worker', shopCode, shopName:shopSnap.data().name, workerName:name, workerWage:staff.wage, workerId:staffDoc.id };
     document.getElementById('worker-shop-badge').textContent = shopSnap.data().name;
-    document.getElementById('worker-greeting').textContent = `${name}님, 안녕하세요! 👋`;
-    document.getElementById('worker-sub').textContent = `시급 ${formatMoney(staff.wage)}원 · 오늘도 파이팅! 🍳`;
+    document.getElementById('worker-greeting').textContent   = `${name}님, 안녕하세요! 👋`;
+    document.getElementById('worker-sub').textContent        = `시급 ${fmt(staff.wage)}원 · 오늘도 파이팅! 🍳`;
     document.getElementById('w-log-date').value = new Date().toISOString().slice(0,10);
     updateMonthTexts();
     showScreen('screen-worker');
     renderWorkerSummary();
     renderWorkerHistory();
     initWorkerCalc();
-  } catch(e) { showToast('오류: ' + e.message); }
+  } catch(e) { showToast('오류: '+e.message); }
 };
 
-// ══════════════════════════════════
-//  Logout
-// ══════════════════════════════════
-window.logout = () => {
-  session = null;
-  showScreen('screen-login');
+// ══ Login Super ══
+window.loginSuper = async () => {
+  const code = document.getElementById('inp-su-code').value.trim().toUpperCase();
+  const pw   = document.getElementById('inp-su-pw').value;
+  if (code !== SUPER_CODE || pw !== SUPER_PW) return showToast('관리자 정보가 틀렸어요');
+  session = { type:'super' };
+  showScreen('screen-super');
+  renderSuperHome();
 };
 
+// ══ Logout ══
+window.logout = () => { session = null; showScreen('screen-login'); };
+
 // ══════════════════════════════════
-//  Admin: Staff CRUD
+//  STAFF CRUD
 // ══════════════════════════════════
 window.addStaff = async () => {
   const name = document.getElementById('a-staff-name').value.trim();
   const wage = parseInt(document.getElementById('a-staff-wage').value);
-  const pin = document.getElementById('a-staff-pin').value;
-  if (!name || !wage || !pin) return showToast('모두 입력해주세요');
-  if (pin.length !== 4) return showToast('PIN은 4자리여야 해요');
-
+  const pin  = document.getElementById('a-staff-pin').value;
+  if (!name||!wage||!pin) return showToast('모두 입력해주세요');
+  if (pin.length!==4) return showToast('PIN은 4자리여야 해요');
   try {
-    await addDoc(collection(db, 'staff'), { name, wage, pin, shopCode: session.shopCode, createdAt: Date.now() });
+    await addDoc(collection(db,'staff'), { name, wage, pin, shopCode:session.shopCode, createdAt:Date.now() });
     document.getElementById('a-staff-name').value = '';
     document.getElementById('a-staff-wage').value = '';
-    document.getElementById('a-staff-pin').value = '';
-    showToast(`${name} 직원 추가! 🎉`);
-    renderAdminStaffManage();
-    renderAdminHome();
-  } catch(e) { showToast('오류: ' + e.message); }
+    document.getElementById('a-staff-pin').value  = '';
+    showToast(`${name} 추가! 🎉`);
+    renderAdminStaffManage(); renderAdminHome();
+  } catch(e) { showToast('오류: '+e.message); }
+};
+
+window.openEditStaff = (id, name, wage) => {
+  document.getElementById('edit-staff-id').value   = id;
+  document.getElementById('edit-staff-name').value = name;
+  document.getElementById('edit-staff-wage').value = wage;
+  document.getElementById('edit-staff-pin').value  = '';
+  document.getElementById('modal-edit-staff').classList.add('open');
+};
+
+window.saveStaffEdit = async () => {
+  const id   = document.getElementById('edit-staff-id').value;
+  const name = document.getElementById('edit-staff-name').value.trim();
+  const wage = parseInt(document.getElementById('edit-staff-wage').value);
+  const pin  = document.getElementById('edit-staff-pin').value;
+  if (!name||!wage) return showToast('이름과 시급을 입력해주세요');
+  const data = { name, wage };
+  if (pin.length===4) data.pin = pin;
+  await updateDoc(doc(db,'staff',id), data);
+  closeModal('modal-edit-staff');
+  showToast('수정했어요!');
+  renderAdminStaffManage(); renderAdminHome();
 };
 
 window.deleteStaff = async (id, name) => {
-  if (!confirm(`${name} 직원을 삭제할까요?`)) return;
-  await deleteDoc(doc(db, 'staff', id));
+  if (!confirm(`${name} 직원을 삭제할까요?\n근무 기록도 모두 삭제됩니다.`)) return;
+  await deleteDoc(doc(db,'staff',id));
+  // 해당 직원 logs도 삭제
+  const q = query(collection(db,'logs'), where('staffId','==',id));
+  const snap = await getDocs(q);
+  for (const d of snap.docs) await deleteDoc(doc(db,'logs',d.id));
   showToast('삭제했어요');
-  renderAdminStaffManage();
-  renderAdminHome();
+  renderAdminStaffManage(); renderAdminHome();
 };
 
-async function getStaffList() {
-  const q = query(collection(db,'staff'), where('shopCode','==',session.shopCode));
+async function getStaffList(shopCode) {
+  const q    = query(collection(db,'staff'), where('shopCode','==',shopCode));
   const snap = await getDocs(q);
-  return snap.docs.map(d => ({ id:d.id, ...d.data() }));
+  return snap.docs.map(d=>({id:d.id,...d.data()}));
 }
 
 async function getLogs(shopCode, month) {
-  const q = query(collection(db,'logs'),
-    where('shopCode','==',shopCode),
-    where('month','==',month));
+  const q    = query(collection(db,'logs'), where('shopCode','==',shopCode), where('month','==',month));
   const snap = await getDocs(q);
-  return snap.docs.map(d => ({ id:d.id, ...d.data() }));
+  return snap.docs.map(d=>({id:d.id,...d.data()}));
 }
 
 // ══════════════════════════════════
-//  Admin Render
+//  LOG CRUD
+// ══════════════════════════════════
+window.addWorkerLog = async () => {
+  const date    = document.getElementById('w-log-date').value;
+  const inTime  = document.getElementById('w-log-in').value;
+  const outTime = document.getElementById('w-log-out').value;
+  if (!date||!inTime||!outTime) return showToast('날짜와 시간을 입력해주세요');
+  const hrs = calcHours(inTime, outTime);
+  if (hrs<=0) return showToast('퇴근 시간을 확인해주세요');
+  try {
+    await addDoc(collection(db,'logs'), {
+      shopCode:session.shopCode, staffId:session.workerId, staffName:session.workerName,
+      date, inTime, outTime, month:date.slice(0,7), createdAt:Date.now()
+    });
+    showToast(`${hrs}시간 기록 완료! 💪`);
+    renderWorkerSummary(); renderWorkerHistory();
+  } catch(e) { showToast('오류: '+e.message); }
+};
+
+window.openEditLog = (id, date, inTime, outTime, cb) => {
+  document.getElementById('edit-log-id').value  = id;
+  document.getElementById('edit-log-date').value = date;
+  document.getElementById('edit-log-in').value   = inTime;
+  document.getElementById('edit-log-out').value  = outTime;
+  editLogCallback = cb;
+  document.getElementById('modal-edit-log').classList.add('open');
+};
+
+window.saveLogEdit = async () => {
+  const id      = document.getElementById('edit-log-id').value;
+  const date    = document.getElementById('edit-log-date').value;
+  const inTime  = document.getElementById('edit-log-in').value;
+  const outTime = document.getElementById('edit-log-out').value;
+  if (!date||!inTime||!outTime) return showToast('모두 입력해주세요');
+  const hrs = calcHours(inTime, outTime);
+  if (hrs<=0) return showToast('퇴근 시간을 확인해주세요');
+  await updateDoc(doc(db,'logs',id), { date, inTime, outTime, month:date.slice(0,7) });
+  closeModal('modal-edit-log');
+  showToast('수정했어요!');
+  if (editLogCallback) editLogCallback();
+};
+
+window.deleteLog = async (id, cb) => {
+  if (!confirm('이 기록을 삭제할까요?')) return;
+  await deleteDoc(doc(db,'logs',id));
+  showToast('삭제했어요');
+  if (cb) cb();
+};
+
+// ══════════════════════════════════
+//  ADMIN RENDER
 // ══════════════════════════════════
 async function renderAdminHome() {
-  const staffList = await getStaffList();
-  const month = monthPrefix(adminMonth.y, adminMonth.m);
-  const logs = await getLogs(session.shopCode, month);
+  const staffList = await getStaffList(session.shopCode);
+  const month     = monthPrefix(adminMonth.y, adminMonth.m);
+  const logs      = await getLogs(session.shopCode, month);
 
   let totalPay = 0;
-  document.getElementById('a-total-staff').textContent = staffList.length + '명';
+  document.getElementById('a-total-staff').textContent = staffList.length+'명';
 
   const html = staffList.map(s => {
-    const sLogs = logs.filter(l => l.staffId === s.id).sort((a,b)=>a.date.localeCompare(b.date));
-    const totalH = sLogs.reduce((sum,l)=>sum+calcHours(l.inTime,l.outTime),0);
-    const pay = Math.round(totalH * s.wage);
+    const sLogs   = logs.filter(l=>l.staffId===s.id).sort((a,b)=>a.date.localeCompare(b.date));
+    const totalH  = sLogs.reduce((sum,l)=>sum+calcHours(l.inTime,l.outTime),0);
+    const pay     = Math.round(totalH*s.wage);
     totalPay += pay;
 
     const logRows = sLogs.length
       ? sLogs.map(l => {
-          const h = calcHours(l.inTime, l.outTime);
+          const h = calcHours(l.inTime,l.outTime);
           return `<div class="admin-log-row">
-            <span>${l.date} ${l.inTime}~${l.outTime}</span>
-            <span style="color:var(--orange);font-weight:600;">${formatMoney(Math.round(h*s.wage))}원 (${h}h)</span>
+            <div>
+              <div style="font-weight:500;color:var(--text);">${l.date}</div>
+              <div>${l.inTime} ~ ${l.outTime} · ${h}h</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="color:var(--orange);font-weight:600;">${fmt(Math.round(h*s.wage))}원</span>
+              <button class="btn btn-outline" style="padding:4px 8px;font-size:11px;" onclick="openEditLog('${l.id}','${l.date}','${l.inTime}','${l.outTime}',()=>{renderAdminHome()})">수정</button>
+              <button class="btn btn-red" style="padding:4px 8px;font-size:11px;" onclick="deleteLog('${l.id}',()=>{renderAdminHome()})">삭제</button>
+            </div>
           </div>`;
         }).join('') +
         `<div style="display:flex;justify-content:space-between;margin-top:8px;padding-top:8px;border-top:2px solid var(--border);">
           <span style="font-size:12px;color:var(--text2);">합계 ${Math.round(totalH*10)/10}시간</span>
-          <span style="font-family:'Gaegu',cursive;font-size:18px;font-weight:700;color:var(--orange);">${formatMoney(pay)}원</span>
+          <span style="font-family:'Gaegu',cursive;font-size:18px;font-weight:700;color:var(--orange);">${fmt(pay)}원</span>
         </div>`
       : '<div style="font-size:12px;color:var(--text3);padding:8px 0;">이번 달 기록 없음</div>';
 
     return `<div class="admin-staff-card">
-      <div class="admin-staff-header" onclick="toggleStaffCard(this)">
+      <div class="admin-staff-header" onclick="toggleCard(this)">
         <div style="display:flex;align-items:center;gap:10px;">
           <div class="staff-avatar">${s.name[0]}</div>
           <div>
             <div style="font-size:14px;font-weight:500;">${s.name}</div>
-            <div style="font-size:11px;color:var(--text2);">시급 ${formatMoney(s.wage)}원</div>
+            <div style="font-size:11px;color:var(--text2);">시급 ${fmt(s.wage)}원 · ${sLogs.length}일</div>
           </div>
         </div>
         <div style="text-align:right;">
-          <div style="font-family:'Gaegu',cursive;font-size:18px;font-weight:700;color:var(--orange);">${formatMoney(pay)}원</div>
-          <div style="font-size:11px;color:var(--text2);">${Math.round(totalH*10)/10}h · ${sLogs.length}일</div>
+          <div style="font-family:'Gaegu',cursive;font-size:18px;font-weight:700;color:var(--orange);">${fmt(pay)}원</div>
+          <div style="font-size:11px;color:var(--text2);">${Math.round(totalH*10)/10}h</div>
         </div>
       </div>
       <div class="admin-staff-body">${logRows}</div>
     </div>`;
   }).join('');
 
-  document.getElementById('a-total-pay').textContent = formatMoney(totalPay)+'원';
-  document.getElementById('a-staff-list').innerHTML = html || '<div class="empty"><span class="empty-emoji">👥</span>직원을 먼저 등록해주세요</div>';
+  document.getElementById('a-total-pay').textContent = fmt(totalPay)+'원';
+  document.getElementById('a-staff-list').innerHTML  = html || '<div class="empty"><span class="empty-emoji">👥</span>직원을 먼저 등록해주세요</div>';
 }
 
-window.toggleStaffCard = (header) => {
-  const body = header.nextElementSibling;
-  body.classList.toggle('open');
-};
+window.toggleCard = header => header.nextElementSibling.classList.toggle('open');
 
 async function renderAdminStaffManage() {
-  const staffList = await getStaffList();
+  const staffList = await getStaffList(session.shopCode);
   const el = document.getElementById('a-staff-list-manage');
-  if (!staffList.length) {
-    el.innerHTML = '<div class="empty"><span class="empty-emoji">👤</span>등록된 직원이 없어요</div>';
-    return;
-  }
-  el.innerHTML = staffList.map(s => `
+  if (!staffList.length) { el.innerHTML='<div class="empty"><span class="empty-emoji">👤</span>등록된 직원이 없어요</div>'; return; }
+  el.innerHTML = staffList.map(s=>`
     <div class="staff-item">
       <div class="staff-avatar">${s.name[0]}</div>
       <div class="staff-name-wrap">
         <div class="staff-nm">${s.name}</div>
-        <div class="staff-wg">시급 ${formatMoney(s.wage)}원 · PIN ****</div>
+        <div class="staff-wg">시급 ${fmt(s.wage)}원</div>
       </div>
-      <button class="btn btn-red" onclick="deleteStaff('${s.id}','${s.name}')">삭제</button>
-    </div>
-  `).join('');
+      <div style="display:flex;gap:6px;">
+        <button class="btn btn-outline" style="padding:6px 10px;font-size:11px;" onclick="openEditStaff('${s.id}','${s.name}',${s.wage})">수정</button>
+        <button class="btn btn-red" style="padding:6px 10px;font-size:11px;" onclick="deleteStaff('${s.id}','${s.name}')">삭제</button>
+      </div>
+    </div>`).join('');
 }
 
-// ══════════════════════════════════
-//  Admin month nav
-// ══════════════════════════════════
-window.changeAdminMonth = (d) => {
-  adminMonth.m += d;
-  if (adminMonth.m > 12) { adminMonth.m=1; adminMonth.y++; }
-  if (adminMonth.m < 1) { adminMonth.m=12; adminMonth.y--; }
-  updateMonthTexts();
-  renderAdminHome();
+window.changeAdminMonth = d => {
+  adminMonth.m+=d;
+  if(adminMonth.m>12){adminMonth.m=1;adminMonth.y++;}
+  if(adminMonth.m<1){adminMonth.m=12;adminMonth.y--;}
+  updateMonthTexts(); renderAdminHome();
 };
 
 // ══════════════════════════════════
-//  Worker: Add Log
-// ══════════════════════════════════
-window.addWorkerLog = async () => {
-  const date = document.getElementById('w-log-date').value;
-  const inTime = document.getElementById('w-log-in').value;
-  const outTime = document.getElementById('w-log-out').value;
-  if (!date || !inTime || !outTime) return showToast('날짜와 시간을 입력해주세요');
-  const hrs = calcHours(inTime, outTime);
-  if (hrs <= 0) return showToast('퇴근 시간을 확인해주세요');
-
-  const month = date.slice(0,7);
-  try {
-    await addDoc(collection(db,'logs'), {
-      shopCode: session.shopCode,
-      staffId: session.workerId,
-      staffName: session.workerName,
-      date, inTime, outTime, month,
-      createdAt: Date.now()
-    });
-    showToast(`${hrs}시간 기록 완료! 💪`);
-    renderWorkerSummary();
-    renderWorkerHistory();
-  } catch(e) { showToast('오류: ' + e.message); }
-};
-
-// ══════════════════════════════════
-//  Worker Render
+//  WORKER RENDER
 // ══════════════════════════════════
 async function renderWorkerSummary() {
   const month = monthPrefix(new Date().getFullYear(), new Date().getMonth()+1);
-  const q = query(collection(db,'logs'),
-    where('shopCode','==',session.shopCode),
-    where('staffId','==',session.workerId),
-    where('month','==',month));
-  const snap = await getDocs(q);
-  const logs = snap.docs.map(d=>d.data());
+  const q     = query(collection(db,'logs'), where('shopCode','==',session.shopCode), where('staffId','==',session.workerId), where('month','==',month));
+  const snap  = await getDocs(q);
+  const logs  = snap.docs.map(d=>d.data());
   const totalH = Math.round(logs.reduce((s,l)=>s+calcHours(l.inTime,l.outTime),0)*10)/10;
-  const totalPay = Math.round(totalH * session.workerWage);
   document.getElementById('w-month-hours').textContent = totalH+'h';
-  document.getElementById('w-month-pay').textContent = formatMoney(totalPay)+'원';
+  document.getElementById('w-month-pay').textContent   = fmt(Math.round(totalH*session.workerWage))+'원';
 }
 
 async function renderWorkerHistory() {
   const month = monthPrefix(workerMonth.y, workerMonth.m);
-  const q = query(collection(db,'logs'),
-    where('shopCode','==',session.shopCode),
-    where('staffId','==',session.workerId),
-    where('month','==',month));
-  const snap = await getDocs(q);
-  const logs = snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>a.date.localeCompare(b.date));
-
+  const q     = query(collection(db,'logs'), where('shopCode','==',session.shopCode), where('staffId','==',session.workerId), where('month','==',month));
+  const snap  = await getDocs(q);
+  const logs  = snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>a.date.localeCompare(b.date));
   const totalH = Math.round(logs.reduce((s,l)=>s+calcHours(l.inTime,l.outTime),0)*10)/10;
-  const totalPay = Math.round(totalH * session.workerWage);
-
+  const totalPay = Math.round(totalH*session.workerWage);
   document.getElementById('w-total-hours-label').textContent = `총 ${totalH}시간`;
-  document.getElementById('w-total-pay-label').textContent = formatMoney(totalPay)+'원';
-
+  document.getElementById('w-total-pay-label').textContent   = fmt(totalPay)+'원';
   const el = document.getElementById('w-log-list');
-  if (!logs.length) {
-    el.innerHTML = '<div class="empty"><span class="empty-emoji">📋</span>이번 달 기록이 없어요</div>';
-    return;
-  }
-  el.innerHTML = logs.map(l => {
-    const h = calcHours(l.inTime, l.outTime);
-    const pay = Math.round(h * session.workerWage);
+  if (!logs.length) { el.innerHTML='<div class="empty"><span class="empty-emoji">📋</span>이번 달 기록이 없어요</div>'; return; }
+  el.innerHTML = logs.map(l=>{
+    const h   = calcHours(l.inTime,l.outTime);
+    const pay = Math.round(h*session.workerWage);
     return `<div class="log-item">
       <div>
         <div class="log-date">${l.date}</div>
         <div class="log-time">${l.inTime} ~ ${l.outTime}</div>
+        <div class="log-actions">
+          <button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="openEditLog('${l.id}','${l.date}','${l.inTime}','${l.outTime}',()=>{renderWorkerHistory();renderWorkerSummary();})">수정</button>
+          <button class="btn btn-red" style="padding:4px 10px;font-size:11px;" onclick="deleteLog('${l.id}',()=>{renderWorkerHistory();renderWorkerSummary();})">삭제</button>
+        </div>
       </div>
       <div style="text-align:right;">
-        <div class="log-pay">${formatMoney(pay)}원</div>
+        <div class="log-pay">${fmt(pay)}원</div>
         <div class="log-hours">${h}시간</div>
       </div>
     </div>`;
   }).join('');
 }
 
-// ══════════════════════════════════
-//  Worker month nav
-// ══════════════════════════════════
-window.changeWorkerMonth = (d) => {
-  workerMonth.m += d;
-  if (workerMonth.m > 12) { workerMonth.m=1; workerMonth.y++; }
-  if (workerMonth.m < 1) { workerMonth.m=12; workerMonth.y--; }
-  updateMonthTexts();
-  renderWorkerHistory();
+window.changeWorkerMonth = d => {
+  workerMonth.m+=d;
+  if(workerMonth.m>12){workerMonth.m=1;workerMonth.y++;}
+  if(workerMonth.m<1){workerMonth.m=12;workerMonth.y--;}
+  updateMonthTexts(); renderWorkerHistory();
 };
 
-// ══════════════════════════════════
-//  Worker calc preview
-// ══════════════════════════════════
 function initWorkerCalc() {
   const update = () => {
     if (!session) return;
-    const inT = document.getElementById('w-log-in').value;
-    const outT = document.getElementById('w-log-out').value;
-    if (!inT || !outT) return;
-    const h = calcHours(inT, outT);
-    const pay = Math.round(h * session.workerWage);
+    const h = calcHours(document.getElementById('w-log-in').value, document.getElementById('w-log-out').value);
     document.getElementById('w-calc-hours').textContent = h+'h';
-    document.getElementById('w-calc-pay').textContent = formatMoney(pay)+'원';
+    document.getElementById('w-calc-pay').textContent   = fmt(Math.round(h*session.workerWage))+'원';
   };
-  document.getElementById('w-log-in').addEventListener('change', update);
-  document.getElementById('w-log-out').addEventListener('change', update);
+  document.getElementById('w-log-in').addEventListener('change',update);
+  document.getElementById('w-log-out').addEventListener('change',update);
 }
 
 // ══════════════════════════════════
-//  Navigation
+//  SUPER ADMIN
+// ══════════════════════════════════
+async function renderSuperHome() {
+  const shopsSnap = await getDocs(collection(db,'shops'));
+  const shops     = shopsSnap.docs.map(d=>({id:d.id,...d.data()}));
+  const staffSnap = await getDocs(collection(db,'staff'));
+  const allStaff  = staffSnap.docs.map(d=>({id:d.id,...d.data()}));
+  const month     = monthPrefix(new Date().getFullYear(), new Date().getMonth()+1);
+  const logsSnap  = await getDocs(query(collection(db,'logs'), where('month','==',month)));
+  const allLogs   = logsSnap.docs.map(d=>({id:d.id,...d.data()}));
+
+  let totalPay = 0;
+  allLogs.forEach(l => {
+    const s = allStaff.find(st=>st.id===l.staffId);
+    if (s) totalPay += Math.round(calcHours(l.inTime,l.outTime)*s.wage);
+  });
+
+  document.getElementById('su-total-shops').textContent = shops.length;
+  document.getElementById('su-total-staff').textContent = allStaff.length;
+  document.getElementById('su-total-pay').textContent   = fmt(totalPay)+'원';
+
+  const html = shops.map(shop => {
+    const shopStaff = allStaff.filter(s=>s.shopCode===shop.code);
+    const shopLogs  = allLogs.filter(l=>l.shopCode===shop.code);
+    let shopPay=0;
+    shopLogs.forEach(l=>{
+      const s=shopStaff.find(st=>st.id===l.staffId);
+      if(s) shopPay+=Math.round(calcHours(l.inTime,l.outTime)*s.wage);
+    });
+    const staffRows = shopStaff.map(s=>`
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dashed var(--border);font-size:13px;">
+        <span>${s.name} · 시급 ${fmt(s.wage)}원</span>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <button class="btn btn-red" style="padding:4px 8px;font-size:11px;" onclick="superDeleteStaff('${s.id}','${s.name}')">삭제</button>
+        </div>
+      </div>`).join('') || '<div style="font-size:12px;color:var(--text3);padding:6px 0;">직원 없음</div>';
+
+    return `<div class="super-shop-card">
+      <div class="super-shop-header" onclick="toggleCard(this)">
+        <div>
+          <div style="font-size:15px;font-weight:700;">${shop.name}</div>
+          <div style="font-size:12px;color:#A855F7;">코드: ${shop.code} · 직원 ${shopStaff.length}명</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="font-family:'Gaegu',cursive;font-size:16px;font-weight:700;color:var(--purple);">${fmt(shopPay)}원</div>
+          <button class="btn btn-red" style="padding:5px 10px;font-size:11px;" onclick="event.stopPropagation();superDeleteShop('${shop.code}','${shop.name}')">가게삭제</button>
+        </div>
+      </div>
+      <div class="super-shop-body">
+        <div style="font-size:11px;font-weight:700;color:#A855F7;margin-bottom:8px;">직원 목록</div>
+        ${staffRows}
+        <div style="margin-top:12px;display:flex;justify-content:flex-end;">
+          <button class="btn-excel" onclick="superExportShop('${shop.code}','${shop.name}')">📊 엑셀</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('su-shop-list').innerHTML = html || '<div class="empty"><span class="empty-emoji">🏪</span>등록된 가게가 없어요</div>';
+}
+
+window.superDeleteShop = async (code, name) => {
+  if (!confirm(`"${name}" 가게를 삭제할까요?\n모든 직원과 기록이 삭제됩니다.`)) return;
+  await deleteDoc(doc(db,'shops',code));
+  const staffQ = query(collection(db,'staff'),where('shopCode','==',code));
+  const staffSnap = await getDocs(staffQ);
+  for (const d of staffSnap.docs) await deleteDoc(doc(db,'staff',d.id));
+  const logsQ = query(collection(db,'logs'),where('shopCode','==',code));
+  const logsSnap = await getDocs(logsQ);
+  for (const d of logsSnap.docs) await deleteDoc(doc(db,'logs',d.id));
+  showToast(`${name} 삭제 완료`);
+  renderSuperHome();
+};
+
+window.superDeleteStaff = async (id, name) => {
+  if (!confirm(`${name} 직원을 삭제할까요?`)) return;
+  await deleteDoc(doc(db,'staff',id));
+  const q = query(collection(db,'logs'),where('staffId','==',id));
+  const snap = await getDocs(q);
+  for (const d of snap.docs) await deleteDoc(doc(db,'logs',d.id));
+  showToast(`${name} 삭제 완료`);
+  renderSuperHome();
+};
+
+// ══════════════════════════════════
+//  EXCEL EXPORT
+// ══════════════════════════════════
+async function exportAdminExcel() {
+  const staffList = await getStaffList(session.shopCode);
+  const month     = monthPrefix(adminMonth.y, adminMonth.m);
+  const logs      = await getLogs(session.shopCode, month);
+  generateExcel(session.shopName, month, staffList, logs);
+}
+window.exportAdminExcel = exportAdminExcel;
+
+window.superExportShop = async (shopCode, shopName) => {
+  const staffList = await getStaffList(shopCode);
+  const month     = monthPrefix(new Date().getFullYear(), new Date().getMonth()+1);
+  const logs      = await getLogs(shopCode, month);
+  generateExcel(shopName, month, staffList, logs);
+};
+
+function generateExcel(shopName, month, staffList, logs) {
+  // CSV 방식으로 엑셀 생성 (SheetJS 없이)
+  const BOM = '\uFEFF';
+  let csv = `${shopName} - ${month} 급여 정산\n\n`;
+  csv += `직원명,날짜,출근,퇴근,근무시간(h),시급,일급\n`;
+
+  let grandTotal = 0;
+  staffList.forEach(s => {
+    const sLogs = logs.filter(l=>l.staffId===s.id).sort((a,b)=>a.date.localeCompare(b.date));
+    const totalH = Math.round(sLogs.reduce((sum,l)=>sum+calcHours(l.inTime,l.outTime),0)*100)/100;
+    const totalPay = Math.round(totalH*s.wage);
+    grandTotal += totalPay;
+
+    if (sLogs.length===0) {
+      csv += `${s.name},기록없음,-,-,0,${s.wage},0\n`;
+    } else {
+      sLogs.forEach((l,i) => {
+        const h = calcHours(l.inTime,l.outTime);
+        csv += `${i===0?s.name:''},${l.date},${l.inTime},${l.outTime},${h},${s.wage},${Math.round(h*s.wage)}\n`;
+      });
+      csv += `,,,합계,${totalH},,${totalPay}\n`;
+    }
+    csv += '\n';
+  });
+  csv += `,,,,,,\n총 급여합계,,,,,,${grandTotal}\n`;
+
+  const blob = new Blob([BOM+csv], { type:'text/csv;charset=utf-8;' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = `${shopName}_${month}_급여정산.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('엑셀 다운로드 완료! 📊');
+}
+
+// ══════════════════════════════════
+//  NAV
 // ══════════════════════════════════
 window.switchAdminPage = (id, btn) => {
   document.querySelectorAll('#screen-admin .page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('#screen-admin .nav-item').forEach(b=>b.classList.remove('active'));
   document.getElementById('apage-'+id).classList.add('active');
   btn.classList.add('active');
-  if (id==='home') renderAdminHome();
-  if (id==='staff') renderAdminStaffManage();
+  if(id==='home') renderAdminHome();
+  if(id==='staff') renderAdminStaffManage();
 };
 
 window.switchWorkerPage = (id, btn) => {
@@ -1099,14 +1042,12 @@ window.switchWorkerPage = (id, btn) => {
   document.querySelectorAll('#screen-worker .nav-item').forEach(b=>b.classList.remove('active'));
   document.getElementById('wpage-'+id).classList.add('active');
   btn.classList.add('active');
-  if (id==='history') renderWorkerHistory();
+  if(id==='history') renderWorkerHistory();
 };
 
-// ══════════════════════════════════
-//  Init
-// ══════════════════════════════════
+// ══ Init ══
 updateMonthTexts();
-setTimeout(() => showScreen('screen-login'), 1200);
+setTimeout(()=>showScreen('screen-login'), 1000);
 </script>
 </body>
 </html>
